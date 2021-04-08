@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -6,6 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import Layout from "./layout/Layout";
 import Add from "./pages/Add";
 import Project from "./pages/Project";
+import EditProject from "./pages/EditProject";
 
 const theme = createMuiTheme({
   typography: {
@@ -29,8 +30,11 @@ function App() {
             <Route path="/add">
               <Add />
             </Route>
-            <Route path="/project">
+            <Route exact path="/project">
               <Project />
+            </Route>
+            <Route path="/project/:projectId/edit">
+              <EditProject />
             </Route>
           </Switch>
         </Layout>

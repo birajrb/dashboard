@@ -70,7 +70,7 @@ const menuItems = [
 
 const getTitle = (menuItems, pathname) => {
   const menu = menuItems.find((m) => m.path === pathname);
-  return menu ? menu.text : "Unknown";
+  return menu ? menu.text : "";
 };
 
 const useStyles = makeStyles((theme) => {

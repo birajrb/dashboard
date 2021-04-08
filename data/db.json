@@ -5,39 +5,13 @@
       "chairperson": "Luffy",
       "contractor": "Nya",
       "description": "Melancholy is the happiness of being sad.",
-      "contribution": "reminders",
-      "status": "ongoing",
+      "contribution": "None",
+      "status": "Ongoing",
       "eb": "5000",
       "gb": "10000",
       "sd": "2021-04-01",
       "ed": "2021-04-14",
       "id": 1
-    },
-    {
-      "title": "sad",
-      "chairperson": "ad",
-      "contractor": "ad",
-      "description": "ada",
-      "contribution": "ad",
-      "status": "adad",
-      "eb": "ada",
-      "gb": "adad",
-      "sd": "2021-04-16",
-      "ed": "2021-04-30",
-      "id": 2
-    },
-    {
-      "title": "dad",
-      "chairperson": "ada",
-      "contractor": "dad",
-      "description": "ad",
-      "contribution": "ada",
-      "status": "adad",
-      "eb": "adad",
-      "gb": "adad",
-      "sd": "0323-12-31",
-      "ed": "2323-03-23",
-      "id": 3
     },
     {
       "title": "Dashboard",
@@ -66,16 +40,16 @@
       "id": 5
     },
     {
-      "title": "Creep",
-      "chairperson": "RadioHead",
-      "contractor": "Thom Yorke",
-      "description": "I don't belong here. She is running at the door. She is running now. She runs, runs, runs, runs...........................",
+      "title": "Melamchy Khane Pani",
+      "chairperson": "KP Oli",
+      "contractor": "Manish Katila",
+      "description": "Water pipes in every houses.",
       "contribution": "None",
-      "status": "Ongoing",
-      "eb": "1000000",
-      "gb": "2000000",
-      "sd": "2021-03-05",
-      "ed": "2021-05-28",
+      "status": "Completed",
+      "eb": "5000000",
+      "gb": "6000000",
+      "sd": "2008-02-08",
+      "ed": "2021-04-08",
       "id": 6
     }
   ]

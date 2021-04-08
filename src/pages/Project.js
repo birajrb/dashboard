@@ -5,9 +5,13 @@ import Paper from '@material-ui/core/Paper';
 import Container from '@material-ui/core/Container'
 import CardLayout from '../layout/CardLayout';
 
+const paperwidth = 500;
+
 const useStyles = makeStyles((theme) => {
     return {
-
+        paper: {
+            maxWidth: paperwidth
+        }
     }
 
 })
@@ -21,13 +25,28 @@ function Project() {
             .then((data) => setDetails(data))
     }, [])
 
+    const handleDelete = (id) => {
+        console.log('DEleting..')
+        fetch("http://localhost:8000/projects/" + id,
+            {
+                method: "DELETE",
+            })
+            .then(res => {
+                if (res.ok) {
+                    const newDetails = details.filter(data => data.id !== id);
+                    setDetails(newDetails)
+                }
+            })
+
+    }
+
 
     return (
         <div>
             <Grid container spacing={1}>
                 {details.map((data) => (
                     <Grid item xs={12} sm={6} lg={4} key={data.id}>
-                        <Paper className={classes.paper}><CardLayout data={data} /></Paper>
+                        <Paper className={classes.paper}><CardLayout data={data} handleDelete={handleDelete} /></Paper>
                     </Grid>
                 ))}
 
