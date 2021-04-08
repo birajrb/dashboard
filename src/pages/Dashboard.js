@@ -4,8 +4,8 @@ import React from "react";
 
 export default function Dashboard() {
   return (
-    <Container>
+    <div>
       <Typography variant="h5">Dashboard</Typography>
-    </Container>
+    </div>
   );
 }

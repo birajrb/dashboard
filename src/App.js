@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Layout from "./layout/Layout";
 import Add from "./pages/Add";
+import Project from "./pages/Project";
 
 const theme = createMuiTheme({
   typography: {
@@ -27,6 +28,9 @@ function App() {
             </Route>
             <Route path="/add">
               <Add />
+            </Route>
+            <Route path="/project">
+              <Project />
             </Route>
           </Switch>
         </Layout>

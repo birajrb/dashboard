@@ -38,6 +38,45 @@
       "sd": "0323-12-31",
       "ed": "2323-03-23",
       "id": 3
+    },
+    {
+      "title": "Dashboard",
+      "chairperson": "Luffy",
+      "contractor": "Zoro",
+      "description": "This is a dashboard project. It is a template for dashboard.",
+      "contribution": "None",
+      "status": "Ongoing",
+      "eb": "10000",
+      "gb": "20000",
+      "sd": "2021-03-08",
+      "ed": "2021-07-08",
+      "id": 4
+    },
+    {
+      "title": "Notepad",
+      "chairperson": "Ussop",
+      "contractor": "Sanji",
+      "description": "This is a notepad project. It is a template project.",
+      "contribution": "None",
+      "status": "Completed",
+      "eb": "1000",
+      "gb": "2000",
+      "sd": "2021-03-03",
+      "ed": "2021-04-10",
+      "id": 5
+    },
+    {
+      "title": "Creep",
+      "chairperson": "RadioHead",
+      "contractor": "Thom Yorke",
+      "description": "I don't belong here. She is running at the door. She is running now. She runs, runs, runs, runs...........................",
+      "contribution": "None",
+      "status": "Ongoing",
+      "eb": "1000000",
+      "gb": "2000000",
+      "sd": "2021-03-05",
+      "ed": "2021-05-28",
+      "id": 6
     }
   ]
 }

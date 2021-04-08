@@ -112,6 +112,7 @@ const useStyles = makeStyles((theme) => {
     },
     container: {
       marginTop: 10,
+      marginLeft: 10
     },
   };
 });

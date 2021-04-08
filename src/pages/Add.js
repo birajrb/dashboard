@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -140,13 +138,13 @@ export default function Add() {
           ed,
         }),
       }).then((res) => {
-        if (res.ok) history.push("/projects");
+        if (res.ok) history.push("/project");
       });
     }
   };
 
   return (
-    <Container>
+    <div>
       <form
         noValidate
         autoComplete="off"
@@ -216,6 +214,11 @@ export default function Add() {
               label="Estimated budget"
               variant="outlined"
               fullWidth
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">Rs.</InputAdornment>
+                ),
+              }}
               error={ebError}
               onChange={(e) => setEb(e.target.value)}
             />
@@ -225,6 +228,11 @@ export default function Add() {
               label="Government budget"
               variant="outlined"
               fullWidth
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">Rs.</InputAdornment>
+                ),
+              }}
               error={gbError}
               onChange={(e) => setGb(e.target.value)}
             />
@@ -269,6 +277,6 @@ export default function Add() {
           </Button>
         </Grid>
       </form>
-    </Container>
+    </div>
   );
 }
