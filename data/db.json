@@ -1,19 +1,6 @@
 {
   "projects": [
     {
-      "title": "Melancholy",
-      "chairperson": "Luffy",
-      "contractor": "Nya",
-      "description": "Melancholy is the happiness of being sad.",
-      "contribution": "None",
-      "status": "Ongoing",
-      "eb": "5000",
-      "gb": "10000",
-      "sd": "2021-04-01",
-      "ed": "2021-04-14",
-      "id": 1
-    },
-    {
       "title": "Dashboard",
       "chairperson": "Luffy",
       "contractor": "Zoro",
@@ -51,6 +38,19 @@
       "sd": "2008-02-08",
       "ed": "2021-04-08",
       "id": 6
+    },
+    {
+      "title": "Covid Eradication",
+      "chairperson": "WHO",
+      "contractor": "Pfizer",
+      "description": "It is an ongoing project for eradication of corona viruses. ",
+      "contribution": "Maximum Cooperation",
+      "status": "Ongoing",
+      "eb": "50000000000",
+      "gb": "50000000000",
+      "sd": "2020-01-01",
+      "ed": "2022-02-10",
+      "id": 7
     }
   ]
 }
