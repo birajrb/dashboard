@@ -7,16 +7,10 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { withStyles, createStyles, makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import { Toys } from '@material-ui/icons';
 import Typography from '@material-ui/core/Typography';
 
-const paperwidth = 500;
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.common.black,
@@ -57,7 +51,8 @@ const useStyles = makeStyles((theme) =>
       borderColor: "white"
     },
     cardHeight: {
-      height: 200
+      height: 200,
+      width: 350
     },
     cardDisplay: {
       display: "inline"
@@ -67,10 +62,10 @@ const useStyles = makeStyles((theme) =>
 );
 
 
+
 function Dashboard() {
   const classes = useStyles();
   const [projects, setProjects] = useState([])
-  const [titles, setTitles] = useState([])
   useEffect(() => {
     fetch("http://localhost:8000/projects")
       .then((res) => { return res.json() })
@@ -80,22 +75,23 @@ function Dashboard() {
       })
 
   }, [])
-  const exclude = ['id', 'name']
+  const exclude = ['id', 'description']
 
   const get_columns = data => {
     return Object.keys(data).filter(
       (value) => exclude.indexOf(value) < 0
     );
   }
+  const [spacing, setSpacing] = React.useState(2);
   return (
     <div >
       <Grid container spacing={10} >
         <Grid item xs={12}>
-          <Grid container spacing={2}>
+          <Grid container justify="center" spacing={spacing}>
             <Grid item xs={3}>
               <Card className={classes.cardHeight} elevation={2}>
                 <CardContent>
-                  <Typography variant="h3" color="textSecondary">Total Number of Projects: <Typography variant="h3" className={classes.cardDisplay} color="secondary">4</Typography></Typography>
+                  <Typography variant="h3" color="textSecondary">Total Number of Projects: <Typography variant="h3" className={classes.cardDisplay} color="secondary">{projects.length}</Typography></Typography>
                 </CardContent>
               </Card>
             </Grid>
@@ -109,14 +105,14 @@ function Dashboard() {
             <Grid item xs={3}>
               <Card className={classes.cardHeight} elevation={2}>
                 <CardContent>
-                  <Typography variant="h3" color="textSecondary">Completed Projects: <Typography variant="h3" className={classes.cardDisplay} color="secondary">4</Typography></Typography>
+                  <Typography variant="h3" color="textSecondary">Completed Projects: <Typography variant="h3" className={classes.cardDisplay} color="secondary">{projects.filter(project => project.status === 'Completed').length}</Typography></Typography>
                 </CardContent>
               </Card>
             </Grid>
             <Grid item xs={3}>
               <Card className={classes.cardHeight} elevation={2}>
                 <CardContent>
-                  <Typography variant="h3" color="textSecondary">Ongoing Projects: <Typography variant="h3" className={classes.cardDisplay} color="secondary">4</Typography></Typography>
+                  <Typography variant="h3" color="textSecondary">Ongoing Projects: <Typography variant="h3" className={classes.cardDisplay} color="secondary">{projects.filter(project => project.status === 'Ongoing').length}</Typography></Typography>
                 </CardContent>
               </Card>
             </Grid>
@@ -139,6 +135,8 @@ function Dashboard() {
                       {
                         get_columns(project).map(key => (<StyledTableCell key={key}>{project[key]}</StyledTableCell>))
                       }
+
+
                     </StyledTableRow>
                   ))
                 }

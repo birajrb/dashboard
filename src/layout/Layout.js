@@ -42,11 +42,6 @@ const menuItems = [
     path: "/add",
   },
   {
-    text: "Project Requests",
-    icon: <MessageIcon color="secondary" />,
-    path: "/request",
-  },
-  {
     text: "Users",
     icon: <GroupIcon color="secondary" />,
     path: "/users",
@@ -140,29 +135,7 @@ export default function Layout({ children }) {
             >
               {title}
             </Typography>
-            {/* <Typography
-              variant="h6"
-              color="textSecondary"
-              className={classes.appItemsTitle}
-            >
-              Dashboard
-            </Typography>
-            <Typography
-              variant="h6"
-              color="textSecondary"
-              className={classes.appItemsTitle}
-            >
-              Users
-            </Typography>
-            <Typography
-              variant="h6"
-              color="textSecondary"
-              className={classes.appItemsTitle}
-            >
-              Settings
-            </Typography> */}
           </div>
-
           <IconButton aria-label="show 4 new mails">
             <Badge badgeContent={4} color="secondary">
               <MailIcon />

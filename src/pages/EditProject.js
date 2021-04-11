@@ -306,7 +306,7 @@ export default function EditProject() {
                             variant="outlined"
                             type="date"
                             InputProps={{
-                                startAdornment: (
+                                inputProps: { min: sd }, startAdornment: (
                                     <InputAdornment position="start"></InputAdornment>
                                 ),
                             }}

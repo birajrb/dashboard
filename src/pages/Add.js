@@ -5,6 +5,11 @@ import { createStyles, makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -18,6 +23,9 @@ const useStyles = makeStyles((theme) =>
       marginLeft: theme.spacing(1),
       marginTop: theme.spacing(1),
     },
+    radio: {
+      marginLeft: 10
+    }
   })
 );
 
@@ -30,7 +38,7 @@ export default function Add() {
   const [contractor, setContractor] = useState("");
   const [description, setDescription] = useState("");
   const [contribution, setContribution] = useState("");
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState("Ongoing");
   const [eb, setEb] = useState("");
   const [gb, setGb] = useState("");
   const [sd, setSd] = useState("");
@@ -42,7 +50,6 @@ export default function Add() {
   const [contractorError, setContractorError] = useState(false);
   const [descriptionError, setDescriptionError] = useState(false);
   const [contributionError, setContributionError] = useState(false);
-  const [statusError, setStatusError] = useState(false);
   const [ebError, setEbError] = useState(false);
   const [gbError, setGbError] = useState(false);
   const [sdError, setSdError] = useState(false);
@@ -59,7 +66,6 @@ export default function Add() {
     setContractorError(false);
     setDescriptionError(false);
     setContributionError(false);
-    setStatusError(false);
     setEbError(false);
     setGbError(false);
     setSdError(false);
@@ -79,13 +85,11 @@ export default function Add() {
     if (contribution === "") {
       setContributionError(true);
     }
-    if (status === "") {
-      setStatusError(true);
-    }
-    if (eb === "") {
+
+    if (eb === "" || isNaN(eb)) {
       setEbError(true);
     }
-    if (gb === "") {
+    if (gb === "" || isNaN(gb)) {
       setGbError(true);
     }
     if (sd === "") {
@@ -103,8 +107,8 @@ export default function Add() {
       description &&
       contribution &&
       status &&
-      eb &&
-      gb &&
+      !isNaN(eb) &&
+      !isNaN(gb) &&
       sd &&
       ed
     ) {
@@ -191,7 +195,7 @@ export default function Add() {
               onChange={(e) => setDescription(e.target.value)}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <TextField
               label="Local Contribution"
               variant="outlined"
@@ -200,15 +204,7 @@ export default function Add() {
               onChange={(e) => setContribution(e.target.value)}
             />
           </Grid>
-          <Grid item xs={6}>
-            <TextField
-              label="Status"
-              variant="outlined"
-              fullWidth
-              error={statusError}
-              onChange={(e) => setStatus(e.target.value)}
-            />
-          </Grid>
+
           <Grid item xs={6}>
             <TextField
               label="Estimated budget"
@@ -256,7 +252,7 @@ export default function Add() {
               variant="outlined"
               type="date"
               InputProps={{
-                startAdornment: (
+                inputProps: { min: sd }, startAdornment: (
                   <InputAdornment position="start"></InputAdornment>
                 ),
               }}
@@ -264,6 +260,15 @@ export default function Add() {
               onChange={(e) => setEd(e.target.value)}
             />
           </Grid>
+        </Grid>
+        <Grid item xs={6} className={classes.radio}>
+          <FormControl component="fieldset">
+            <FormLabel component="legend">Status</FormLabel>
+            <RadioGroup aria-label="status" name="status" value={status} onChange={(e) => setStatus(e.target.value)} row >
+              <FormControlLabel value="Ongoing" control={<Radio />} label="Ongoing" />
+              <FormControlLabel value="Completed" control={<Radio />} label="Completed" />
+            </RadioGroup>
+          </FormControl>
         </Grid>
         <Grid item xs={6}>
           <Button
