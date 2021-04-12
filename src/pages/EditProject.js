@@ -5,7 +5,7 @@ import { createStyles, makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import { CircularProgress, Typography } from "@material-ui/core";
+import { CircularProgress } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) =>
     createStyles({
