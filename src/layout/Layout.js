@@ -22,10 +22,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import IconButton from "@material-ui/core/IconButton";
-import Dashboard from "../pages/Dashboard";
-import Add from "../pages/Add";
-import Project from "../pages/Project";
-import EditProject from "../pages/EditProject";
+import { Container } from "@material-ui/core";
 
 const drawerWidth = 240;
 const menuItems = [
@@ -110,7 +107,6 @@ const useStyles = makeStyles((theme) => {
     },
     container: {
       marginTop: 10,
-      marginLeft: 10
     },
   };
 });
@@ -193,7 +189,7 @@ export default function Layout({ children }) {
       </Drawer>
       <div className={classes.children}>
         <div className={classes.toolbar}></div>
-        <div className={classes.container}>{children}</div>
+        <Container className={classes.container}>{children}</Container>
       </div>
     </div>
   );
