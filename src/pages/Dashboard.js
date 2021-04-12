@@ -6,7 +6,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { withStyles, createStyles, makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
@@ -33,7 +32,6 @@ const useStyles = makeStyles((theme) =>
     root: {
       "& .MuiTextField-root": {
         margin: theme.spacing(1),
-        // width: "50ch",
       },
     },
     button: {
@@ -41,27 +39,32 @@ const useStyles = makeStyles((theme) =>
       marginTop: theme.spacing(1),
     },
     table: {
-      minWidth: 700
     },
     paper: {
       padding: theme.spacing(2),
       textAlign: 'center',
       color: theme.palette.text.secondary,
-
       borderColor: "white"
     },
     cardHeight: {
       height: 200,
-      width: 350
+      flexShrink: 1,
+      flexGrow: 1,
+      marginRight: theme.spacing(2),
+      marginBottom: theme.spacing(5),
+      width: 150,
     },
     cardDisplay: {
-      display: "inline"
+      display: "inline",
+
+    },
+    cardContainer: {
+      display: "flex",
+      flexWrap: "wrap"
     }
 
   })
 );
-
-
 
 function Dashboard() {
   const classes = useStyles();
@@ -85,67 +88,52 @@ function Dashboard() {
   const [spacing, setSpacing] = React.useState(2);
   return (
     <div >
-      <Grid container spacing={10} >
-        <Grid item xs={12}>
-          <Grid container justify="center" spacing={spacing}>
-            <Grid item xs={3}>
-              <Card className={classes.cardHeight} elevation={2}>
-                <CardContent>
-                  <Typography variant="h3" color="textSecondary">Total Number of Projects: <Typography variant="h3" className={classes.cardDisplay} color="secondary">{projects.length}</Typography></Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid item xs={3}>
-              <Card className={classes.cardHeight} elevation={2}>
-                <CardContent>
-                  <Typography variant="h3" color="textSecondary">Total Number of Users: <Typography variant="h3" className={classes.cardDisplay} color="secondary">4</Typography></Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid item xs={3}>
-              <Card className={classes.cardHeight} elevation={2}>
-                <CardContent>
-                  <Typography variant="h3" color="textSecondary">Completed Projects: <Typography variant="h3" className={classes.cardDisplay} color="secondary">{projects.filter(project => project.status === 'Completed').length}</Typography></Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid item xs={3}>
-              <Card className={classes.cardHeight} elevation={2}>
-                <CardContent>
-                  <Typography variant="h3" color="textSecondary">Ongoing Projects: <Typography variant="h3" className={classes.cardDisplay} color="secondary">{projects.filter(project => project.status === 'Ongoing').length}</Typography></Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item xs={12}>
-          {projects.length > 0 ? <TableContainer>
-            <Table className={classes.table}>
-              <TableHead>
-                <TableRow>
+      <div className={classes.cardContainer}>
+        <Card className={classes.cardHeight} elevation={2}>
+          <CardContent>
+            <Typography variant="h4" color="textSecondary">Total Number of Projects: <Typography variant="h4" className={classes.cardDisplay} color="secondary">{projects.length}</Typography></Typography>
+          </CardContent>
+        </Card>
+        <Card className={classes.cardHeight} elevation={2}>
+          <CardContent>
+            <Typography variant="h4" color="textSecondary">Total Number of Users: <Typography variant="h4" className={classes.cardDisplay} color="secondary">4</Typography></Typography>
+          </CardContent>
+        </Card>
+        <Card className={classes.cardHeight} elevation={2}>
+          <CardContent>
+            <Typography variant="h4" color="textSecondary">Completed Projects: <Typography variant="h4" className={classes.cardDisplay} color="secondary">{projects.filter(project => project.status === 'Completed').length}</Typography></Typography>
+          </CardContent>
+        </Card>
+        <Card className={classes.cardHeight} elevation={2}>
+          <CardContent>
+            <Typography variant="h4" color="textSecondary">Ongoing Projects: <Typography variant="h4" className={classes.cardDisplay} color="secondary">{projects.filter(project => project.status === 'Ongoing').length}</Typography></Typography>
+          </CardContent>
+        </Card>
+      </div>
+      {projects.length > 0 ? <TableContainer>
+        <Table className={classes.table}>
+          <TableHead>
+            <TableRow>
+              {
+                get_columns(projects[0]).map(item => <StyledTableCell key={item}>{(item === "eb") ? "E. BUDGET" : (item === "gb") ? "G. BUDGET" : (item === "sd") ? "START DATE" : (item === "ed") ? "END DATE" : item.toUpperCase()}</StyledTableCell>)
+              }
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {
+              projects.map((project, index) => (
+                <StyledTableRow key={index}>
                   {
-                    get_columns(projects[0]).map(item => <StyledTableCell key={item}>{(item === "eb") ? "E. BUDGET" : (item === "gb") ? "G. BUDGET" : (item === "sd") ? "START DATE" : (item === "ed") ? "END DATE" : item.toUpperCase()}</StyledTableCell>)
+                    get_columns(project).map(key => (<StyledTableCell key={key}>{project[key]}</StyledTableCell>))
                   }
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {
-                  projects.map((project, index) => (
-                    <StyledTableRow key={index}>
-                      {
-                        get_columns(project).map(key => (<StyledTableCell key={key}>{project[key]}</StyledTableCell>))
-                      }
 
 
-                    </StyledTableRow>
-                  ))
-                }
-              </TableBody>
-            </Table>
-          </TableContainer> : null}
-        </Grid>
-      </Grid>
-
+                </StyledTableRow>
+              ))
+            }
+          </TableBody>
+        </Table>
+      </TableContainer> : null}
     </div >
   )
 }
