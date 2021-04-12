@@ -5,12 +5,12 @@ import { createStyles, makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
-import Container from "@material-ui/core/Container"
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormControl from "@material-ui/core/FormControl";
+import FormLabel from "@material-ui/core/FormLabel";
+import Container from "@material-ui/core/Container";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -25,8 +25,8 @@ const useStyles = makeStyles((theme) =>
       marginTop: theme.spacing(1),
     },
     radio: {
-      marginLeft: 10
-    }
+      marginLeft: 10,
+    },
   })
 );
 
@@ -149,7 +149,7 @@ export default function Add() {
   };
 
   return (
-    <div>
+    <div style={{ marginLeft: -15 }}>
       <form
         noValidate
         autoComplete="off"
@@ -253,7 +253,8 @@ export default function Add() {
               variant="outlined"
               type="date"
               InputProps={{
-                inputProps: { min: sd }, startAdornment: (
+                inputProps: { min: sd },
+                startAdornment: (
                   <InputAdornment position="start"></InputAdornment>
                 ),
               }}
@@ -265,9 +266,23 @@ export default function Add() {
         <Grid item xs={6} className={classes.radio}>
           <FormControl component="fieldset">
             <FormLabel component="legend">Status</FormLabel>
-            <RadioGroup aria-label="status" name="status" value={status} onChange={(e) => setStatus(e.target.value)} row >
-              <FormControlLabel value="Ongoing" control={<Radio />} label="Ongoing" />
-              <FormControlLabel value="Completed" control={<Radio />} label="Completed" />
+            <RadioGroup
+              aria-label="status"
+              name="status"
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+              row
+            >
+              <FormControlLabel
+                value="Ongoing"
+                control={<Radio />}
+                label="Ongoing"
+              />
+              <FormControlLabel
+                value="Completed"
+                control={<Radio />}
+                label="Completed"
+              />
             </RadioGroup>
           </FormControl>
         </Grid>
