@@ -6,6 +6,8 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import { CircularProgress } from "@material-ui/core";
+import Container from "@material-ui/core/Container"
+
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -184,7 +186,7 @@ export default function EditProject() {
     }, [])
 
     return (
-        <div>
+        <Container style={{ marginLeft: -12 }}>
             {loading ? <CircularProgress /> : <form
                 noValidate
                 autoComplete="off"
@@ -327,6 +329,6 @@ export default function EditProject() {
                     </Button>
                 </Grid>
             </form>}
-        </div>
+        </Container>
     );
 }
