@@ -8,7 +8,6 @@ import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CardActions from '@material-ui/core/CardActions';
-import { useHistory } from 'react-router';
 
 const paperwidth = 500;
 
@@ -23,7 +22,6 @@ const useStyles = makeStyles({
 
 function CardLayout({ data, handleDelete }) {
     const classes = useStyles()
-    const history = useHistory()
 
     return (
         <Card elevation={2} className={classes.root}>
