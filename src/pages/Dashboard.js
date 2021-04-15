@@ -9,6 +9,9 @@ import { withStyles, createStyles, makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import Container from "@material-ui/core/Container"
+import CircularProgress from '@material-ui/core/CircularProgress'
+
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -61,7 +64,12 @@ const useStyles = makeStyles((theme) =>
     cardContainer: {
       display: "flex",
       flexWrap: "wrap"
-    }
+    },
+    container: {
+      marginTop: 10,
+      marginRight: 10,
+      marginLeft: 0,
+    },
 
   })
 );
@@ -69,17 +77,35 @@ const useStyles = makeStyles((theme) =>
 function Dashboard() {
   const classes = useStyles();
   const [projects, setProjects] = useState([])
+  const [error, setError] = useState(null);
+  const [isLoading, setLoading] = useState(true);
   useEffect(() => {
-    fetch("http://localhost:8000/projects")
-      .then((res) => { return res.json() })
-      .then((data) => {
-        setProjects(data)
-
+    const abortCont = new AbortController();
+    fetch("http://localhost:8000/projects", { signal: abortCont.signal })
+      .then((res) => {
+        if (!res.ok) {
+          throw Error("Could not fetch data")
+        }
+        return res.json();
       })
-
+      .then((data) => {
+        setError(false);
+        setProjects(data);
+      })
+      .catch(err => {
+        if (err.name === "FetchError") {
+          console.log("fetch error")
+        } else {
+          setError(err.message);
+        }
+      })
+      .finally(() => setLoading(false))
+    return () => {
+      abortCont.abort()
+    }
   }, [])
-  const exclude = ['id', 'description']
 
+  const exclude = ['id', 'description']
   const get_columns = data => {
     return Object.keys(data).filter(
       (value) => exclude.indexOf(value) < 0
@@ -87,29 +113,31 @@ function Dashboard() {
   }
   const [spacing, setSpacing] = React.useState(2);
   return (
-    <div >
-      <div className={classes.cardContainer}>
-        <Card className={classes.cardHeight} elevation={2}>
-          <CardContent>
-            <Typography variant="h4" color="textSecondary">Total Number of Projects: <Typography variant="h4" className={classes.cardDisplay} color="secondary">{projects.length}</Typography></Typography>
-          </CardContent>
-        </Card>
-        <Card className={classes.cardHeight} elevation={2}>
-          <CardContent>
-            <Typography variant="h4" color="textSecondary">Total Number of Users: <Typography variant="h4" className={classes.cardDisplay} color="secondary">4</Typography></Typography>
-          </CardContent>
-        </Card>
-        <Card className={classes.cardHeight} elevation={2}>
-          <CardContent>
-            <Typography variant="h4" color="textSecondary">Completed Projects: <Typography variant="h4" className={classes.cardDisplay} color="secondary">{projects.filter(project => project.status === 'Completed').length}</Typography></Typography>
-          </CardContent>
-        </Card>
-        <Card className={classes.cardHeight} elevation={2}>
-          <CardContent>
-            <Typography variant="h4" color="textSecondary">Ongoing Projects: <Typography variant="h4" className={classes.cardDisplay} color="secondary">{projects.filter(project => project.status === 'Ongoing').length}</Typography></Typography>
-          </CardContent>
-        </Card>
-      </div>
+    <Container className={classes.container}>
+      { isLoading ? <CircularProgress disableShrink /> :
+        error ? <div>{error}</div> :
+          <div className={classes.cardContainer}>
+            <Card className={classes.cardHeight} elevation={2}>
+              <CardContent>
+                <Typography variant="h4" color="textSecondary">Total Number of Projects: <Typography variant="h4" className={classes.cardDisplay} color="secondary">{projects.length}</Typography></Typography>
+              </CardContent>
+            </Card>
+            <Card className={classes.cardHeight} elevation={2}>
+              <CardContent>
+                <Typography variant="h4" color="textSecondary">Total Number of Users: <Typography variant="h4" className={classes.cardDisplay} color="secondary">4</Typography></Typography>
+              </CardContent>
+            </Card>
+            <Card className={classes.cardHeight} elevation={2}>
+              <CardContent>
+                <Typography variant="h4" color="textSecondary">Completed Projects: <Typography variant="h4" className={classes.cardDisplay} color="secondary">{projects.filter(project => project.status === 'Completed').length}</Typography></Typography>
+              </CardContent>
+            </Card>
+            <Card className={classes.cardHeight} elevation={2}>
+              <CardContent>
+                <Typography variant="h4" color="textSecondary">Ongoing Projects: <Typography variant="h4" className={classes.cardDisplay} color="secondary">{projects.filter(project => project.status === 'Ongoing').length}</Typography></Typography>
+              </CardContent>
+            </Card>
+          </div>}
       {projects.length > 0 ? <TableContainer>
         <Table className={classes.table}>
           <TableHead>
@@ -126,15 +154,13 @@ function Dashboard() {
                   {
                     get_columns(project).map(key => (<StyledTableCell key={key}>{project[key]}</StyledTableCell>))
                   }
-
-
                 </StyledTableRow>
               ))
             }
           </TableBody>
         </Table>
       </TableContainer> : null}
-    </div >
+    </Container >
   )
 }
 
