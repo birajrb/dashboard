@@ -1,57 +1,183 @@
 import React, { useState, useEffect } from 'react'
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from "@material-ui/core/Grid";
-import Paper from '@material-ui/core/Paper';
-import CardLayout from '../layout/CardLayout';
-import { Container } from '@material-ui/core';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import { useHistory } from 'react-router';
+import CircularProgress from '@material-ui/core/CircularProgress'
+import IconButton from '@material-ui/core/IconButton';
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
+import SearchIcon from '@material-ui/icons/Search';
+import InputAdornment from '@material-ui/core/InputAdornment';
+
+
 
 const paperwidth = 500;
+const StyledTableCell = withStyles((theme) => ({
+    head: {
+        backgroundColor: theme.palette.common.black,
+        color: theme.palette.common.white,
+    },
+    body: {
+        fontSize: 14,
+    },
+}))(TableCell);
+
+const StyledTableRow = withStyles((theme) => ({
+    root: {
+        '&:nth-of-type(odd)': {
+            backgroundColor: theme.palette.action.hover,
+        },
+    },
+}))(TableRow);
 
 const useStyles = makeStyles((theme) => {
     return {
         paper: {
             maxWidth: paperwidth
+        },
+        table: {
+            width: 1550
+        },
+        flexbox: {
+            display: "flex",
+            justifyContent: "space-between"
         }
     }
 
 })
 
+
+
 function Project() {
     const classes = useStyles();
-    const [details, setDetails] = useState([])
+
+    const history = useHistory()
+
+    const [projects, setProjects] = useState([])
+    const [isLoading, setLoading] = useState(true);
+    const [error, setError] = useState(null)
+    const [searchTerm, setSearchTerm] = useState("")
+
+    const handleChange = (e) => {
+        setSearchTerm(e.target.value)
+
+    }
+
+    // const result = !searchTerm ? projects :
+    //     projects.filter(project =>
+    //         project.toLowerCase().includes(searchTerm.toLocaleLowerCase()))
+
+
     useEffect(() => {
-        fetch("http://localhost:8000/projects")
-            .then((res) => { return res.json() })
-            .then((data) => setDetails(data))
+        const abortCont = new AbortController();
+        fetch("http://localhost:8000/projects", { signal: abortCont.signal })
+            .then((res) => {
+                if (!res.ok) {
+                    throw Error("Could not fetch data")
+                }
+                return res.json();
+            })
+            .then((data) => {
+                setError(false);
+                setProjects(data);
+            })
+            .catch(err => {
+                if (err.name === "FetchError") {
+                    console.log("fetch error")
+                } else {
+                    setError(err.message);
+                }
+            })
+            .finally(() => setLoading(false))
+        return () => {
+            abortCont.abort()
+        }
     }, [])
 
+    const exclude = ["id", "name"]
+    const get_columns = data => {
+        return Object.keys(data).filter(value => exclude.indexOf(value) < 0)
+    }
+
     const handleDelete = (id) => {
-        console.log('DEleting..')
+        console.log('Deleting..')
         fetch("http://localhost:8000/projects/" + id,
             {
                 method: "DELETE",
             })
             .then(res => {
                 if (res.ok) {
-                    const newDetails = details.filter(data => data.id !== id);
-                    setDetails(newDetails)
+                    const newProjects = projects.filter(data => data.id !== id);
+                    setProjects(newProjects)
                 }
             })
-
     }
 
-
     return (
-        <div>
-            <Grid container spacing={1}>
-                {details.map((data) => (
-                    <Grid item xs={12} sm={6} lg={4} key={data.id}>
-                        <Paper className={classes.paper}><CardLayout data={data} handleDelete={handleDelete} /></Paper>
-                    </Grid>
-                ))}
+        <div style={{ marginLeft: 20 }}>
+            {isLoading ? <CircularProgress disableShrink /> :
+                error ? <div>{error}</div> :
+                    <div>
+                        <div className={classes.flexbox}>
+                            <div></div>
+                            <div style={{ marginBottom: 20 }}>
+                                <Grid container spacing={1} alignItems="flex-end">
+                                    <Grid item>
+                                        <TextField
+                                            label="Search"
+                                            color="secondary"
+                                            size="small"
+                                            onChange={handleChange}
+                                        />
+                                    </Grid>
+                                    <Grid item>
+                                        <SearchIcon style={{ fontSize: 25, position: "relative", right: "10" }} />
+                                    </Grid>
+                                </Grid>
 
-            </Grid>
-        </div>
+                            </div>
+                        </div>
+                        {projects.length > 0 ? <TableContainer>
+                            <Table>
+                                <TableHead>
+                                    <TableRow>
+                                        {get_columns(projects[0]).map(item => <StyledTableCell key={item}>{(item === "eb") ? "E. BUDGET" : (item === "gb") ? "G. BUDGET" : (item === "sd") ? "START DATE" : (item === "ed") ? "END DATE" : item.toUpperCase()}</StyledTableCell>)}
+                                        <StyledTableCell>EDIT</StyledTableCell>
+                                        <StyledTableCell>DELETE</StyledTableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {projects.map((project, index) => (
+                                        <StyledTableRow key={index}>
+                                            { get_columns(project).map(key => (
+                                                <StyledTableCell>{project[key]}</StyledTableCell>
+                                            ))}
+                                            <StyledTableCell><IconButton aria-label="edit" className={classes.settingIcons} onClick={() => {
+                                                history.push(`/project/${project.id}/edit`)
+                                            }}>
+                                                <EditIcon />
+                                            </IconButton></StyledTableCell>
+                                            <StyledTableCell><IconButton aria-label="delete" onClick={() => {
+                                                console.log('A')
+                                                handleDelete(project.id)
+                                            }}>
+                                                <DeleteIcon />
+                                            </IconButton></StyledTableCell >
+                                        </StyledTableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer> : null}</div>
+            }
+
+        </div >
     )
 }
 
