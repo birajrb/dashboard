@@ -15,6 +15,7 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import { Typography } from '@material-ui/core';
 
 
 
@@ -67,12 +68,15 @@ function Project() {
 
     const handleChange = (e) => {
         setSearchTerm(e.target.value)
-
     }
 
-    // const result = !searchTerm ? projects :
-    //     projects.filter(project =>
-    //         project.toLowerCase().includes(searchTerm.toLocaleLowerCase()))
+    const results = !searchTerm ? projects :
+        projects.filter(project => {
+            return Object.keys(project).some(key => {
+                if (typeof (project[key]) === 'string')
+                    return project[key].toLowerCase().includes(searchTerm.toLowerCase())
+            })
+        })
 
 
     useEffect(() => {
@@ -144,7 +148,7 @@ function Project() {
 
                             </div>
                         </div>
-                        {projects.length > 0 ? <TableContainer>
+                        {results.length > 0 ? <TableContainer>
                             <Table>
                                 <TableHead>
                                     <TableRow>
@@ -154,7 +158,7 @@ function Project() {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {projects.map((project, index) => (
+                                    {results.map((project, index) => (
                                         <StyledTableRow key={index}>
                                             { get_columns(project).map(key => (
                                                 <StyledTableCell>{project[key]}</StyledTableCell>
@@ -174,7 +178,7 @@ function Project() {
                                     ))}
                                 </TableBody>
                             </Table>
-                        </TableContainer> : null}</div>
+                        </TableContainer> : <Typography variant="h4">No Results Found</Typography>}</div>
             }
 
         </div >
