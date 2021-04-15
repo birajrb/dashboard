@@ -1,95 +1,17 @@
 {
   "projects": [
     {
-      "title": "Dashboard",
-      "chairperson": "Luffy",
-      "contractor": "Zoro",
-      "description": "This is a dashboard project. It is a template for dashboard.",
-      "contribution": "None",
+      "title": "One piece",
+      "chairperson": "Oda Sensei",
+      "contractor": "Kaskashi Hatake",
+      "description": "One piece is the best anime of all time.",
+      "contribution": "Dichhen",
       "status": "Ongoing",
-      "eb": "10000",
-      "gb": "20000",
-      "sd": "2021-03-08",
-      "ed": "2021-07-08",
-      "id": 4
-    },
-    {
-      "title": "Notepad",
-      "chairperson": "Ussop",
-      "contractor": "Sanji",
-      "description": "This is a notepad project. It is a template project.",
-      "contribution": "None",
-      "status": "Completed",
-      "eb": "1000",
-      "gb": "2000",
-      "sd": "2021-03-03",
-      "ed": "2021-04-10",
-      "id": 5
-    },
-    {
-      "title": "Melamchy Khane Pani",
-      "chairperson": "KP Oli",
-      "contractor": "Manish Katila",
-      "description": "Water pipes in every houses.",
-      "contribution": "None",
-      "status": "Completed",
-      "eb": "5000000",
-      "gb": "6000000",
-      "sd": "2008-02-08",
-      "ed": "2021-04-08",
-      "id": 6
-    },
-    {
-      "title": "Covid Eradication",
-      "chairperson": "WHO",
-      "contractor": "Pfizer",
-      "description": "It is an ongoing project for eradication of corona viruses. ",
-      "contribution": "Maximum Cooperation",
-      "status": "Ongoing",
-      "eb": "50000000000",
-      "gb": "50000000000",
-      "sd": "2020-01-01",
-      "ed": "2022-02-10",
-      "id": 7
-    },
-    {
-      "title": "asdda",
-      "chairperson": "dasda",
-      "contractor": "dad",
-      "description": "adad",
-      "contribution": "adad",
-      "status": "Completed",
-      "eb": "11",
-      "gb": "11",
-      "sd": "2021-04-02",
-      "ed": "2021-04-01",
-      "id": 8
-    },
-    {
-      "title": "Shishir",
-      "chairperson": "Prashant",
-      "contractor": "Sudesh",
-      "description": "Sheeesh",
-      "contribution": "Full",
-      "status": "Completed",
-      "eb": "100",
-      "gb": "200",
-      "sd": "2021-04-10",
-      "ed": "2021-04-23",
-      "id": 9
-    },
-    {
-      "title": "A hymm for the moment",
-      "chairperson": "Coldplay",
-      "contractor": "Matt Leblanc",
-      "description": "Yeaaaaaahhhh how long must you wait for me? yeahhh ",
-      "contribution": "All",
-      "status": "Ongoing",
-      "eb": "199",
-      "gb": "122",
-      "sd": "2021-04-08",
-      "ed": "2021-04-15",
-      "id": 10
+      "eb": "20000",
+      "gb": "1000000",
+      "sd": "1997-02-15",
+      "ed": "2028-07-13",
+      "id": 1
     }
   ]
 }

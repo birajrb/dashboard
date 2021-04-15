@@ -191,7 +191,7 @@ export default function Layout({ children }) {
       </Drawer>
       <div className={classes.children}>
         <div className={classes.toolbar}></div>
-        <Container className={classes.container}>{children}</Container>
+        <div className={classes.container}>{children}</div>
       </div>
     </div>
   );
