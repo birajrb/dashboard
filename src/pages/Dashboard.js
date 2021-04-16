@@ -79,6 +79,11 @@ function Dashboard() {
   const [projects, setProjects] = useState([])
   const [error, setError] = useState(null);
   const [isLoading, setLoading] = useState(true);
+
+  const results = projects.sort((a, b) => {
+    if (a.sd < b.sd) return -1
+  })
+
   useEffect(() => {
     const abortCont = new AbortController();
     fetch("http://localhost:8000/projects", { signal: abortCont.signal })
@@ -105,7 +110,7 @@ function Dashboard() {
     }
   }, [])
 
-  const exclude = ['id', 'description']
+  const exclude = ['id', 'description', 'chairperson', 'contractor', 'contribution', 'eb', 'gb', 'sd', 'ed']
   const get_columns = data => {
     return Object.keys(data).filter(
       (value) => exclude.indexOf(value) < 0
@@ -142,6 +147,9 @@ function Dashboard() {
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
+              <StyledTableCell variant="head" colSpan="2" align="center"><Typography variant="h6">RECENT PROJECTS</Typography></StyledTableCell>
+            </TableRow>
+            <TableRow>
               {
                 get_columns(projects[0]).map(item => <StyledTableCell key={item}>{(item === "eb") ? "E. BUDGET" : (item === "gb") ? "G. BUDGET" : (item === "sd") ? "START DATE" : (item === "ed") ? "END DATE" : item.toUpperCase()}</StyledTableCell>)
               }
@@ -149,7 +157,7 @@ function Dashboard() {
           </TableHead>
           <TableBody>
             {
-              projects.map((project, index) => (
+              results.slice(0, 10).map((project, index) => (
                 <StyledTableRow key={index}>
                   {
                     get_columns(project).map(key => (<StyledTableCell key={key}>{project[key]}</StyledTableCell>))
