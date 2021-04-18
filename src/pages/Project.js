@@ -126,7 +126,7 @@ function Project() {
 
     return (
         <div style={{ marginLeft: 20 }}>
-            <AppBar style={{ marginTop: 65, backgroundColor: "white", borderBottom: "none", position: "fixed"/*{height: 93}*/ }} elevation={-1} >
+            <AppBar style={{ marginTop: 65, backgroundColor: "white", borderBottom: "none", height: 62 }} elevation={-1} position="fixed">
                 <Toolbar>
                     <div style={{ marginBottom: 20, marginLeft: 240 }} >
                         <Grid container spacing={1} alignItems="flex-end" >
