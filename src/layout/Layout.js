@@ -22,7 +22,6 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import IconButton from "@material-ui/core/IconButton";
-import { Container } from "@material-ui/core";
 
 const drawerWidth = 240;
 const menuItems = [

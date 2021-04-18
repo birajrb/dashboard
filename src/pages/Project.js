@@ -14,8 +14,9 @@ import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import SearchIcon from '@material-ui/icons/Search';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import { Typography } from '@material-ui/core';
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
 
 
 
@@ -46,12 +47,11 @@ const useStyles = makeStyles((theme) => {
         table: {
             width: 1550
         },
-        flexbox: {
-            display: "flex",
-            justifyContent: "space-between"
-        }
-    }
+        appBar: {
+            background: "white",
 
+        },
+    }
 })
 
 
@@ -126,29 +126,29 @@ function Project() {
 
     return (
         <div style={{ marginLeft: 20 }}>
-            {isLoading ? <CircularProgress disableShrink /> :
-                error ? <div>{error}</div> :
-                    <div>
-                        <div className={classes.flexbox}>
-                            <div></div>
-                            <div style={{ marginBottom: 20 }}>
-                                <Grid container spacing={1} alignItems="flex-end">
-                                    <Grid item>
-                                        <TextField
-                                            label="Search"
-                                            color="secondary"
-                                            size="small"
-                                            onChange={handleChange}
-                                        />
-                                    </Grid>
-                                    <Grid item>
-                                        <SearchIcon style={{ fontSize: 25, position: "relative", right: "10" }} />
-                                    </Grid>
-                                </Grid>
-
-                            </div>
-                        </div>
-                        {results.length > 0 ? <TableContainer>
+            <AppBar style={{ marginTop: 65, backgroundColor: "white", borderBottom: "none", position: "fixed"/*{height: 93}*/ }} elevation={-1} >
+                <Toolbar>
+                    <div style={{ marginBottom: 20, marginLeft: 240 }} >
+                        <Grid container spacing={1} alignItems="flex-end" >
+                            <Grid item>
+                                <TextField
+                                    label="Search"
+                                    color="secondary"
+                                    size="small"
+                                    onChange={handleChange}
+                                />
+                            </Grid>
+                            <Grid item>
+                                <SearchIcon style={{ fontSize: 25, position: "relative", right: "10", color: "black" }} />
+                            </Grid>
+                        </Grid>
+                    </div>
+                </Toolbar>
+            </AppBar>
+            <div style={{ marginTop: 75 }}>
+                {isLoading ? <CircularProgress disableShrink /> :
+                    error ? <div>{error}</div> :
+                        results.length > 0 ? <TableContainer>
                             <Table>
                                 <TableHead>
                                     <TableRow>
@@ -178,8 +178,9 @@ function Project() {
                                     ))}
                                 </TableBody>
                             </Table>
-                        </TableContainer> : <Typography variant="h4">No Results Found</Typography>}</div>
-            }
+                        </TableContainer> : <Typography variant="h4">No Results Found</Typography>
+                }
+            </div>
 
         </div >
     )
