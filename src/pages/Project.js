@@ -105,7 +105,7 @@ function Project() {
         }
     }, [])
 
-    const exclude = ["id", "name"]
+    const exclude = ["id"]
     const get_columns = data => {
         return Object.keys(data).filter(value => exclude.indexOf(value) < 0)
     }
@@ -152,9 +152,9 @@ function Project() {
                             <Table>
                                 <TableHead>
                                     <TableRow>
-                                        {get_columns(projects[0]).map(item => <StyledTableCell key={item}>{(item === "eb") ? "E. BUDGET" : (item === "gb") ? "G. BUDGET" : (item === "sd") ? "START DATE" : (item === "ed") ? "END DATE" : item.toUpperCase()}</StyledTableCell>)}
-                                        <StyledTableCell>EDIT</StyledTableCell>
-                                        <StyledTableCell>DELETE</StyledTableCell>
+                                        {get_columns(projects[0]).map(item => <StyledTableCell key={item}>{(item === "temperature") ? "Temperature(°F)" : (item === "oxygen") ? "Oxygen Level(SpO₂)" : (item === "time") ? "Time" : (item === "date") ? "Date" : item}</StyledTableCell>)}
+                                        <StyledTableCell>Edit</StyledTableCell>
+                                        <StyledTableCell>Delete</StyledTableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>

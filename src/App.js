@@ -2,9 +2,12 @@ import React from "react";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Layout from "./layout/Layout";
+import Add from "./pages/Add";
+import Project from "./pages/Project";
+import EditProject from "./pages/EditProject";
 
-import Login from "./pages/Login";
-import Home from "./pages/Home";
+
 
 const theme = createMuiTheme({
   typography: {
@@ -18,18 +21,23 @@ const theme = createMuiTheme({
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <Router>
-        <Switch>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </Router>
-    </ThemeProvider>
+    <Router>
+      <ThemeProvider theme={theme}>
+        <Layout>
+          <Switch>
+            <Route path="/add">
+              <Add />
+            </Route>
+            <Route exact path="/project">
+              <Project />
+            </Route>
+            <Route path="/project/:projectId/edit">
+              <EditProject />
+            </Route>
+          </Switch>
+        </Layout>
+      </ThemeProvider>
+    </Router>
   );
 }
 

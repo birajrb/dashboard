@@ -10,56 +10,24 @@ import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import DashboardIcon from "@material-ui/icons/Dashboard";
 import AddIcon from "@material-ui/icons/Add";
 import ListIcon from "@material-ui/icons/List";
-import GroupIcon from "@material-ui/icons/Group";
-import SettingsIcon from "@material-ui/icons/Settings";
-import PersonIcon from "@material-ui/icons/Person";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import Badge from "@material-ui/core/Badge";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import MailIcon from "@material-ui/icons/Mail";
-import NotificationsIcon from "@material-ui/icons/Notifications";
-import IconButton from "@material-ui/core/IconButton";
+
 
 const drawerWidth = 240;
 const menuItems = [
+
   {
-    text: "Dashboard",
-    icon: <DashboardIcon color="secondary" />,
-    path: "/",
-  },
-  {
-    text: "Project",
+    text: "Report",
     icon: <ListIcon color="secondary" />,
     path: "/project",
   },
   {
-    text: "Add Projects",
+    text: "Add Report",
     icon: <AddIcon color="secondary" />,
     path: "/add",
   },
-  {
-    text: "Users",
-    icon: <GroupIcon color="secondary" />,
-    path: "/users",
-  },
-  {
-    text: "Settings",
-    icon: <SettingsIcon color="secondary" />,
-    path: "/settings",
-  },
-  {
-    text: "Profile",
-    icon: <PersonIcon color="secondary" />,
-    path: "/profile",
-  },
-  {
-    text: "Log Out",
-    icon: <ExitToAppIcon color="secondary" />,
-    path: "/logout",
-  },
+
 ];
 
 const getTitle = (menuItems, pathname) => {
@@ -136,23 +104,7 @@ export default function Layout({ children }) {
               {title}
             </Typography>
           </div>
-          <IconButton aria-label="show 4 new mails">
-            <Badge badgeContent={4} color="secondary">
-              <MailIcon />
-            </Badge>
-          </IconButton>
-          <IconButton aria-label="show 17 new notifications">
-            <Badge badgeContent={17} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-          <IconButton
-            edge="end"
-            aria-label="account of current user"
-            aria-haspopup="true"
-          >
-            <AccountCircle />
-          </IconButton>
+
         </Toolbar>
       </AppBar>
       <Drawer
@@ -169,7 +121,7 @@ export default function Layout({ children }) {
           color="textSecondary"
           className={classes.title}
         >
-          Admin Panel
+          Medical Report
         </Typography>
         <Divider />
         <List>
